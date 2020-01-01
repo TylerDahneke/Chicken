@@ -19,7 +19,7 @@ class ShapeNode:
         self.x, self.y = self.pos1 = pos1
         self.x_2, self.y_2 = self.pos2 = pos2
 
-        self.data_type = c_o.Chicken()
+        self.data_type = c_o.Chicken(self.pos1, fill)
 
         if draw_on_creation:
             self.canvas_shape_id = None
@@ -31,7 +31,7 @@ class ShapeNode:
         return self.canvas_shape_id == other.canvas_shape_id
 
     def __repr__(self):
-        return f'{self.pos1}'
+        return f'[{self.pos1}, {self.data_type.production}]'
 
     def draw(self):
         self.canvas_shape_id = self.canvas.create_rectangle(self.x, self.y, self.x_2, self.y_2,
@@ -43,7 +43,12 @@ class ShapeNode:
         del_x, del_y = self.data_type.get_move_delta()
         self.canvas.move(self.canvas_shape_id, del_x, del_y)
         self.x += del_x
+        self.x_2 += del_x
         self.y += del_y
+        self.y_2 += del_y
+        self.pos1 = self.x, self.y
+        self.pos2 = self.x_2, self.y_2
+        self.data_type.update_pos(self.pos1)
 
     def assign_fill(self, fill_str):
         self.fill = fill_str
