@@ -108,7 +108,5 @@ class display:
         return percent_roll
 
 
-
-
 if __name__ == '__main__':
     main()

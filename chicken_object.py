@@ -99,4 +99,3 @@ class Chicken:
                              math.pow((255 - self.b) / 255, 2), .5)
         production_scalar = 50
         return base_vari * production_scalar
-
